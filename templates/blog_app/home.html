@@ -6,8 +6,14 @@
     <div class="container">
         <div class="text-center my-5">
             <h1 class="fw-bolder">Welcome to Lemon Blog!</h1>
-            <p class="lead mb-0">A experimental project to practice Django basics</p>
-            <p class="lead mb-0">{{ message }}</p>
+            <p class="lead mb-0">A experimental project to practice Django basics</p> <br>
+            {% if messages %}
+                    {% for message in messages %}
+                       {{ message }}
+                    {% endfor %}
+            {% endif %}
+            {{ message }}
+            {{ error }}
         </div>
     </div>
 </header>
