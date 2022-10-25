@@ -42,6 +42,8 @@ def register(request):
             form.save()
             user = authenticate(request, username = username, password = password)
             login(request, user)
+            ruser = request.user
+            player, created = Profile.objects.get_or_create(user = ruser)
             messages.success(request, f'Welcome for the first time {username}, make yourself at home')
             return redirect('home')         
         context = {
@@ -62,9 +64,30 @@ class Logout(LoginRequiredMixin, LogoutView):
     extra_context = {"message" : "You've successfully Logout"}
 
 
-@login_required
-def profile(request):
-    pass
+def my_profile(request):
+    user = request.user
+    context = {
+        "user" : user
+    }
+    return render(request, "user_app/profile.html", context)
+
+
+def unaffiliated_profile(request, username):
+    user = User.objects.get(username=username)
+    context = {
+        "user" : user,
+        "username" : username,
+    }
+    return render(request, "user_app/profile.html", context)
+
+
+def profile_all(request):
+    users = User.objects.all()
+    context = {
+        "users" : users
+    }
+    return render(request, "user_app/profile_all.html", context)
+
 
 @login_required
 def profile_edit(request):

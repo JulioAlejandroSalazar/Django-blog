@@ -37,10 +37,11 @@
                         <ul class="navbar-nav ml-auto mb-2 mb-lg-0">                      
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
-                                    {{ user.username }}
+                                    {{ request.user }}
                                 </a>
                                 <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="#!">Profile</a></li>
+                                <li><a class="dropdown-item" href="{% url 'my_profile' %}">Profile</a></li>
+                                <li><a class="dropdown-item" href="{% url 'profile_all' %}">Profiles</a></li>
                                 <li><a class="dropdown-item" href="{% url 'profile_edit' %}">Edit</a></li>
                                 <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>                              
                                 </ul>

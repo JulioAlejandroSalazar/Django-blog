@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+  <title>Profiles | Lemon Blog</title>
+{% endblock %}
+
+{% block content %}
+  {% for user in users %}
+    {{ user.username }}
+    <a class="btn btn-primary" href="{% url 'unaffiliated_profile' user.username %}">More info</a>
+    <br> <br>
+  {% endfor %}
+{% endblock %}
