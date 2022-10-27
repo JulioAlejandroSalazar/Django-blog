@@ -64,6 +64,7 @@ class Logout(LoginRequiredMixin, LogoutView):
     extra_context = {"message" : "You've successfully Logout"}
 
 
+@login_required
 def my_profile(request):
     user = request.user
     context = {
@@ -94,18 +95,20 @@ def profile_edit(request):
     user = request.user
     if request.method == "POST":
         form_user = UserEditForm(request.POST, instance = user)
-        form_profile = ProfileEditForm(request.POST, request.FILES, instance = user.profile)
+        form_profile = ProfileEditForm(request.POST, """request.FILES,""" ,instance = user.profile)
         if form_user.is_valid() and form_profile.is_valid():
             form_user.save()
             form_profile.save()
-            messages.success(request, "Your profile has been updated!")
-            return redirect("home")
+            context = {
+                "message" : "Profile edited succesfully"
+            }
+            return render(request, "blog_app/home.html", context)
         context = {
             "error" : "Invalid data",
             "form_user" : form_user,
             "form_profile" : form_profile,
         }
-        return render(request, 'user_app/home.html', context)
+        return render(request, 'blog_app/home.html', context)
         
     else:
         player, created = Profile.objects.get_or_create(user = user)

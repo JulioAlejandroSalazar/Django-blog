@@ -17,10 +17,10 @@ class UserRegisterForm(UserCreationForm):
 
 
 class UserEditForm(forms.ModelForm):
-    username = forms.CharField(max_length=100, required=True)
-    email = forms.EmailField(required=True)
-    first_name = forms.CharField(max_length=100, label="Name", required=False)
-    last_lame = forms.CharField(max_length=100, label="Last Name", required=False)
+    username = forms.CharField(max_length=100, required=True, widget=forms.TextInput(attrs={"class":"form-control"}))
+    email = forms.EmailField(required=True, widget=forms.TextInput(attrs={"class":"form-control"}))
+    first_name = forms.CharField(max_length=100, label="Name", required=False, widget=forms.TextInput(attrs={"class":"form-control"}))
+    last_name = forms.CharField(max_length=100, label="Last Name", required=False, widget=forms.TextInput(attrs={"class":"form-control"}))
 
     class Meta:
         model = User
@@ -28,8 +28,16 @@ class UserEditForm(forms.ModelForm):
 
 
 class ProfileEditForm(forms.ModelForm):
+    phone = forms.CharField(required=False, widget=forms.TextInput(attrs={"class":"form-control"}))
+    country = forms.CharField(required=False, widget=forms.TextInput(attrs={"class":"form-control"}))
+    birth_date = forms.DateField(required=False, widget=forms.TextInput(attrs={"class":"form-control"}))
+    short_description = forms.CharField(required=False, widget=forms.TextInput(attrs={"class":"form-control"}))
+    generic_link = forms.CharField(required=False, widget=forms.TextInput(attrs={"class":"form-control"}))
+    github_link = forms.CharField(required=False, widget=forms.TextInput(attrs={"class":"form-control"}))
+    instagram_link = forms.CharField(required=False, widget=forms.TextInput(attrs={"class":"form-control"}))
+    facebook_link = forms.CharField(required=False, widget=forms.TextInput(attrs={"class":"form-control"}))
     bio = forms.TextInput()
 
     class Meta:
         model = Profile
-        fields = ["bio"]
+        fields = ['phone', 'country', 'birth_date', 'short_description', 'generic_link', 'github_link', 'instagram_link', 'facebook_link', 'bio']

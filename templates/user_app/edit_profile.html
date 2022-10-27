@@ -3,47 +3,140 @@
 {% load crispy_forms_tags %}
 
 {% block title %}
-  <title>Edit {{ user.username }} | Lemon Blog</title>
+  <title>Edit {{ request.user }} | Lemon Blog</title>
 {% endblock %}
 
 {% block content %}
-<div class="container rounded bg-white mt-5 mb-5">
-  <div class="row">
-      <div class="col-md-3 border-right">
-          <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5" width="150px" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"><span class="font-weight-bold">{{ user.username }}</span><span class="text-black-50"><input type="file" class="text-center center-block file-upload"></span><span> </span></div>
+<section style="background-color: #eee;">
+  <div class="container py-5">
+    <div class="row">
+      <div class="col-lg-4">
+        <div class="card mb-4">
+          <div class="card-body text-center">
+            <form action="{% url 'profile_edit' %}" method="POST"> {% csrf_token %}
+            <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp" alt="avatar"
+              class="rounded-circle img-fluid" style="width: 150px;">
+            <h5 class="my-3">Change avatar</h5>
+            <p class="text-muted mb-4">Blogs posted </p>
+            <div class="d-flex justify-content-center mb-2">
+              <button type="submit" class="btn btn-primary">Save</button>
+              <a class="btn btn-danger" href="{% url 'my_profile' %}">Cancel</a>
+            </div>
+          </div>
+        </div>
+        <div class="card mb-4 mb-lg-0">
+          <div class="card-body p-0">
+            <ul class="list-group list-group-flush rounded-3">
+              <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+                <i class="fas fa-globe fa-lg text-warning"></i>
+                <p class="mb-0">{{ form_profile.generic_link }}</p>
+              </li>
+              <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+                <i class="fab fa-github fa-lg" style="color: #333333;"></i>
+                <p class="mb-0">{{ form_profile.github_link }}</p>
+              </li>            
+              <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+                <i class="fab fa-instagram fa-lg" style="color: #ac2bac;"></i>
+                <p class="mb-0">{{ form_profile.instagram_link }}</p>
+              </li>
+              <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+                <i class="fab fa-facebook-f fa-lg" style="color: #3b5998;"></i>
+                <p class="mb-0">{{ form_profile.facebook_link }}</p>
+              </li>
+            </ul>
+          </div>
+        </div>
       </div>
-      <div class="col-md-6 border-right">
-          <div class="p-3 py-5">
-              <div class="d-flex justify-content-between align-items-center mb-3">
-                  <h4 class="text-right">Profile Settings</h4>
+      <div class="col-lg-8">
+        <div class="card mb-4">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0">Username</p>
               </div>
-              <form class="mx-1 mx-md-4" action="{% url 'profile_edit' %}" method="POST"> {% csrf_token %}
-                <div class="row mt-3">
-                  {{ form_user.username|as_crispy_field }}
-                </div>
-                <div class="row mt-2">
-                  {{ form_user.first_name|as_crispy_field }}
-                  {{ form_user.last_name|as_crispy_field }}
-                </div>
-                <div class="row mt-3">
-                  {{ form_user.email|as_crispy_field }}
-                  {{ form_profile.bio|as_crispy_field }}
-                </div>
-                <div class="mt-5 text-center"><button class="btn btn-primary profile-button" type="submit">Save Profile</button></div>
-              </form>
+              <div class="col-sm-9">
+                <p class="text-muted mb-0">{{ form_user.username }}</p>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0">First Name</p>
+              </div>
+              <div class="col-sm-9">
+                <p class="text-muted mb-0">{{ form_user.first_name }}</p>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0">Last Name</p>
+              </div>
+              <div class="col-sm-9">
+                <p class="text-muted mb-0">{{ form_user.last_name }}</p>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0">Email</p>
+              </div>
+              <div class="col-sm-9">
+                <p class="text-muted mb-0">{{ form_user.email }}</p>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0">Short Description</p>
+              </div>
+              <div class="col-sm-9">
+                <p class="text-muted mb-0">{{ form_profile.short_description }}</p>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0">Phone</p>
+              </div>
+              <div class="col-sm-9">
+                <p class="text-muted mb-0">{{ form_profile.phone }}</p>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0">Country</p>
+              </div>
+              <div class="col-sm-9">
+                <p class="text-muted mb-0">{{ form_profile.country }}</p>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0">Birth Date</p>
+              </div>
+              <div class="col-sm-9">
+                <p class="text-muted mb-0">{{ form_profile.birth_date }}</p>
+              </div>
+            </div>
           </div>
-      </div>
-      <!--
-      <div class="col-md-4">
-          <div class="p-3 py-5">
-              <div class="d-flex justify-content-between align-items-center experience"><span>Edit Experience</span><span class="border px-3 p-1 add-experience"><i class="fa fa-plus"></i>&nbsp;Experience</span></div><br>
-              <div class="col-md-12"><label class="labels">Experience in Designing</label><input type="text" class="form-control" placeholder="experience" value=""></div> <br>
-              <div class="col-md-12"><label class="labels">Additional Details</label><input type="text" class="form-control" placeholder="additional details" value=""></div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card mb-4 mb-md-0">
+              <div class="card-body">
+                <p class="mb-6 text-center">Bio</p>
+                <hr>
+                  {{ form_profile.bio }}
+              </div>
+            </div>
+          </form>
           </div>
-      -->
+        </div>
       </div>
+    </div>
   </div>
-</div>
-</div>
-</div>                               
+</section>                               
 {% endblock %}
