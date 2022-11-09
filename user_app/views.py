@@ -5,6 +5,8 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import PasswordChangeForm
+from django.contrib.auth import update_session_auth_hash
 from .forms import *
 from .models import *
 
@@ -99,10 +101,8 @@ def profile_edit(request):
         if form_user.is_valid() and form_profile.is_valid():
             form_user.save()
             form_profile.save()
-            context = {
-                "message" : "Profile edited succesfully"
-            }
-            return render(request, "blog_app/home.html", context)
+            messages.success(request, 'Profile edited successfully')
+            return redirect("my_profile")
         context = {
             "error" : "Invalid data",
             "form_user" : form_user,
@@ -117,6 +117,25 @@ def profile_edit(request):
             'form_profile' : ProfileEditForm(instance = user.profile),
         }
         return render(request, "user_app/edit_profile.html", context)
+
+
+@login_required
+def change_password(request):
+    if request.method == "POST":
+        form = UserPasswordChangeForm(request.user, request.POST)
+        if form.is_valid():
+            user = form.save()
+            update_session_auth_hash(request, user)
+            messages.success(request, 'Password changed successfully')
+            return redirect("my_profile")
+        messages.error(request, "Password did not match")
+        return redirect("change_password")
+
+    else:
+        context = {
+            "form" : UserPasswordChangeForm(request.user)
+        }
+        return render(request, "user_app/change_password.html", context)
 
 
 def get_avatar(request):
