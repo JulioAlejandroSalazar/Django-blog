@@ -97,7 +97,7 @@ def profile_edit(request):
     user = request.user
     if request.method == "POST":
         form_user = UserEditForm(request.POST, instance = user)
-        form_profile = ProfileEditForm(request.POST, """request.FILES,""" ,instance = user.profile)
+        form_profile = ProfileEditForm(request.POST, request.FILES, instance = user.profile)
         if form_user.is_valid() and form_profile.is_valid():
             form_user.save()
             form_profile.save()

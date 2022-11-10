@@ -40,16 +40,19 @@ class UserPasswordChangeForm(PasswordChangeForm):
 
 
 class ProfileEditForm(forms.ModelForm):
-    phone = forms.CharField(required=False, widget=forms.TextInput(attrs={"class":"form-control"}))
-    country = forms.CharField(required=False, widget=forms.TextInput(attrs={"class":"form-control"}))
-    birth_date = forms.DateField(required=False, widget=forms.TextInput(attrs={"class":"form-control"}))
-    short_description = forms.CharField(required=False, widget=forms.TextInput(attrs={"class":"form-control"}))
-    generic_link = forms.CharField(required=False, widget=forms.TextInput(attrs={"class":"form-control"}))
-    github_link = forms.CharField(required=False, widget=forms.TextInput(attrs={"class":"form-control"}))
-    instagram_link = forms.CharField(required=False, widget=forms.TextInput(attrs={"class":"form-control"}))
-    facebook_link = forms.CharField(required=False, widget=forms.TextInput(attrs={"class":"form-control"}))
-    bio = forms.TextInput()
-
     class Meta:
         model = Profile
-        fields = ['phone', 'country', 'birth_date', 'short_description', 'generic_link', 'github_link', 'instagram_link', 'facebook_link', 'bio']
+        fields = '__all__'
+        exclude = ['user']
+
+        widgets = {
+            'phone': forms.TextInput(attrs={'class': 'form-control'}),
+            'country': forms.TextInput(attrs={'class': 'form-control'}),
+            'birth_date': forms.TextInput(attrs={'class': 'form-control'}),
+            'short_description': forms.TextInput(attrs={'class': 'form-control'}),
+            'generic_link': forms.TextInput(attrs={'class': 'form-control'}),
+            'github_link': forms.TextInput(attrs={'class': 'form-control'}),
+            'instagram_link': forms.TextInput(attrs={'class': 'form-control'}),
+            'facebook_link': forms.TextInput(attrs={'class': 'form-control'}),
+            'bio': forms.Textarea(attrs={'class': 'form-control'}),
+        }

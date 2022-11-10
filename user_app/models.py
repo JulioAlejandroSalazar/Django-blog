@@ -1,11 +1,10 @@
-from email.policy import default
 from django.db import models
 from django.contrib.auth.models import User
 
 
 
 class Profile(models.Model):
-    user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, null=True, blank=True, on_delete=models.CASCADE)
     phone = models.CharField(max_length=100, blank=True, default="")
     country = models.CharField(max_length=100, blank=True, default="")
     birth_date = models.DateField(blank=True, null=True)
@@ -15,6 +14,7 @@ class Profile(models.Model):
     instagram_link = models.CharField(max_length=200, blank=True, default="")
     facebook_link = models.CharField(max_length=200, blank=True, default="")
     bio = models.TextField(blank=True, default="")
+    profile_pic = models.ImageField(blank=True, null=True, upload_to="profile_pic", default="profile_pic/default_profile_pic.png")
 
     def __str__(self):
         return str(self.user.username)
