@@ -13,7 +13,7 @@
         <div class="card mb-4">
           <div class="card-body text-center">
             <form action="{% url 'profile_edit' %}" method="POST" enctype="multipart/form-data"> {% csrf_token %}
-            <img class= "rounded-circle img-fluid" style="width: 125px;" src="{{ user.profile.profile_pic.url }}" alt="profile_pic">
+            <img class= "rounded-circle img-fluid" style="width: 125px; height: 125px;" src="{{ user.profile.profile_pic.url }}" alt="profile_pic">
             <h6 class="my-3">Change avatar</h6>
             <p class="mb-0">{{ form_profile.profile_pic }}</p>
             <p class="text-muted mb-4">Blogs posted </p>
@@ -139,5 +139,13 @@
       </div>
     </div>
   </div>
-</section>                               
+</section>
+
+<script>
+  $(function () {
+    $("#id_birth_date").datepicker({
+      format:'dd/mm/yyyy',
+    });
+  });
+</script>
 {% endblock %}
