@@ -15,6 +15,7 @@ class Profile(models.Model):
     facebook_link = models.CharField(max_length=200, blank=True, null=True)
     bio = models.TextField(blank=True, null=True)
     profile_pic = models.ImageField(blank=True, null=True, upload_to="profile_pic", default="profile_pic/default_profile_pic.png")
+    posts = models.IntegerField(blank=True, default=0)
 
     def __str__(self):
         return str(self.user.username)
