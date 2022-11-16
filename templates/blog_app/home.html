@@ -36,15 +36,23 @@
 <div class="row">
     <div class="col-lg-6">
         <!-- Blog post-->
-        <div class="card mb-4">
-            <a href="#!"><img class="card-img-top" src="https://dummyimage.com/700x350/dee2e6/6c757d.jpg" alt="..." /></a>
-            <div class="card-body">
-                <div class="small text-muted">January 1, 2022</div>
-                <h2 class="card-title h4">Post Title</h2>
-                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla.</p>
-                <a class="btn btn-primary" href="#!">Read more →</a>
-            </div>
-        </div>
+        {% if posts %}
+            {% for post in posts %}
+                <div class="card mb-4">
+                    {% if not post.post_image %}
+                        <img class="card-img-top" src="https://dummyimage.com/700x350/dee2e6/6c757d.jpg" alt="..." />
+                    {% else %}
+                            <img class="card-img-top" style="object-fit: cover; aspect-ratio: 2 / 1;" src="{{ post.post_image.url }}" alt="..." />
+                    {% endif %}
+                    <div class="card-body">
+                        <div class="small text-muted">Written by {{ post.author }} | {{ post.date|date:"N jS, G:i" }}</div>
+                        <h2 class="card-title h4">{{ post.title }}</h2>
+                        <p class="card-text">{{ post.body }}</p>                       
+                        <a class="btn btn-primary" href="#!">Read more →</a>
+                    </div>
+                </div>
+            {% endfor %}
+        {% endif %}
         <!-- Blog post-->
         <div class="card mb-4">
             <a href="#!"><img class="card-img-top" src="https://dummyimage.com/700x350/dee2e6/6c757d.jpg" alt="..." /></a>

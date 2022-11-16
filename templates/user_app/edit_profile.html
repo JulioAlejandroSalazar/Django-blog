@@ -13,14 +13,13 @@
         <div class="card mb-4">
           <div class="card-body text-center">
             <form action="{% url 'profile_edit' %}" method="POST" enctype="multipart/form-data"> {% csrf_token %}
-            <img class= "rounded-circle img-fluid" style="width: 125px; height: 125px;" src="{{ user.profile.profile_pic.url }}" alt="profile_pic">
+            <img class= "rounded-circle img-fluid" style="width: 125px; height: 125px; object-fit: cover;" src="{{ user.profile.profile_pic.url }}" alt="profile_pic">
             <h6 class="my-3">Change avatar</h6>
-            <p class="mb-0">{{ form_profile.profile_pic }}</p>
-            <p class="text-muted mb-4">Blogs posted </p>
+            <p class="mb-0">{{ form_profile.profile_pic }}</p> <br>
             <div class="d-flex justify-content-center mb-2">
-              <div class="btn-group">
+              <div class="form-group">
                 <button type="submit" class="btn btn-success">Save</button>
-                <a class="btn btn-danger" href="{% url 'my_profile' %}">Cancel</a>
+                <a class="btn btn-danger" href="{% url 'my_profile' %}" role="button">Cancel</a>
                 </div>
             </div>
           </div>
