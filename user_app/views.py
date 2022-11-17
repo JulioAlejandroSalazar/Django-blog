@@ -5,8 +5,8 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
+from blog_app.models import Post
 from .forms import *
 from .models import *
 
@@ -62,8 +62,14 @@ def register(request):
 
 
 class Logout(LoginRequiredMixin, LogoutView):
+    posts = Post.objects.order_by('-date')
+    last_post = Post.objects.latest('date')
     template_name = "blog_app/home.html"
-    extra_context = {"message" : "You've successfully Logout"}
+    extra_context = {
+        "message" : "You've successfully Logout",
+        "posts" : posts,
+        "last_post" : last_post,
+        }
 
 
 @login_required

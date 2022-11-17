@@ -20,72 +20,45 @@
 {% endblock %}
 
 {% block posts %}
-<!--This div is for making room for the widgets <div class="col-lg-8"> </div>-->
 <!-- Featured blog post-->
-<div class="card mb-4">
-    <a href="#!"><img class="card-img-top" src="https://dummyimage.com/850x350/dee2e6/6c757d.jpg" alt="..." /></a>
-    <div class="card-body">
-        <div class="small text-muted">January 1, 2022</div>
-        <h2 class="card-title">Featured Post Title</h2>
-        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla? Quos cum ex quis soluta, a laboriosam. Dicta expedita corporis animi vero voluptate voluptatibus possimus, veniam magni quis!</p>
-        <a class="btn btn-primary" href="#!">Read more →</a>
+{% if last_post %}
+    <div class="card mb-4">
+        {% if not last_post.post_image %}
+            <img class="card-img-top" src="https://dummyimage.com/850x350/dee2e6/6c757d.jpg" alt="..." />
+        {% else %}
+            <img class="card-img-top" src="{{ last_post.post_image.url }}" style="object-fit: cover; aspect-ratio: 2.42 / 1;" alt="...">
+        {% endif %}
+        <div class="card-body">
+            <div class="small text-muted">Written by <a class="link" href="{% url 'unaffiliated_profile' last_post.author %}">{{ last_post.author }}</a> | {{ last_post.date|date:"N jS, G:i" }}</div>
+            <h2 class="card-title">{{ last_post.title }}</h2>
+            <p class="card-text">{{ last_post.body }}</p>
+            <a class="btn btn-primary" href="#!">Read more →</a>
+        </div>
     </div>
-</div>
+{% endif %}
 
-<!-- Nested row for non-featured blog posts-->
+<!-- posts-->
 <div class="row">
-    <div class="col-lg-6">
-        <!-- Blog post-->
-        {% if posts %}
-            {% for post in posts %}
-                <div class="card mb-4">
+    {% if posts %}
+        {% for post in posts %}
+        {{ post|dictsortreversed:0 }}
+            <div class="col-lg-6">        
+                <div class="card mb-4 ">
                     {% if not post.post_image %}
                         <img class="card-img-top" src="https://dummyimage.com/700x350/dee2e6/6c757d.jpg" alt="..." />
                     {% else %}
                             <img class="card-img-top" style="object-fit: cover; aspect-ratio: 2 / 1;" src="{{ post.post_image.url }}" alt="..." />
                     {% endif %}
                     <div class="card-body">
-                        <div class="small text-muted">Written by {{ post.author }} | {{ post.date|date:"N jS, G:i" }}</div>
+                        <div class="small text-muted">Written by <a class="link" href="{% url 'unaffiliated_profile' post.author %}">{{ post.author }}</a> | {{ post.date|date:"N jS, G:i" }}</div>
                         <h2 class="card-title h4">{{ post.title }}</h2>
                         <p class="card-text">{{ post.body }}</p>                       
                         <a class="btn btn-primary" href="#!">Read more →</a>
                     </div>
                 </div>
-            {% endfor %}
-        {% endif %}
-        <!-- Blog post-->
-        <div class="card mb-4">
-            <a href="#!"><img class="card-img-top" src="https://dummyimage.com/700x350/dee2e6/6c757d.jpg" alt="..." /></a>
-            <div class="card-body">
-                <div class="small text-muted">January 1, 2022</div>
-                <h2 class="card-title h4">Post Title</h2>
-                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla.</p>
-                <a class="btn btn-primary" href="#!">Read more →</a>
             </div>
-        </div>
-    </div>
-    <div class="col-lg-6">
-        <!-- Blog post-->
-        <div class="card mb-4">
-            <a href="#!"><img class="card-img-top" src="https://dummyimage.com/700x350/dee2e6/6c757d.jpg" alt="..." /></a>
-            <div class="card-body">
-                <div class="small text-muted">January 1, 2022</div>
-                <h2 class="card-title h4">Post Title</h2>
-                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla.</p>
-                <a class="btn btn-primary" href="#!">Read more →</a>
-            </div>
-        </div>
-        <!-- Blog post-->
-        <div class="card mb-4">
-            <a href="#!"><img class="card-img-top" src="https://dummyimage.com/700x350/dee2e6/6c757d.jpg" alt="..." /></a>
-            <div class="card-body">
-                <div class="small text-muted">January 1, 2022</div>
-                <h2 class="card-title h4">Post Title</h2>
-                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla? Quos cum ex quis soluta, a laboriosam.</p>
-                <a class="btn btn-primary" href="#!">Read more →</a>
-            </div>
-        </div>
-    </div>
+        {% endfor %}
+    {% endif %}
 </div>
 
 <!-- Pagination-->

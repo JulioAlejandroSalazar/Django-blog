@@ -8,11 +8,13 @@ from user_app.models import Profile
 
 
 def home(request):
-    posts = Post.objects.all()
+    posts = Post.objects.order_by('-date')
+    last_post = Post.objects.latest('date')
     if not posts.exists():
         return render(request, 'blog_app/home.html')
     context = {
-        'posts' : posts
+        'posts' : posts,
+        'last_post' : last_post,
     }
     return render(request, 'blog_app/home.html', context)
 
