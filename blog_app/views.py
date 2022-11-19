@@ -41,3 +41,21 @@ def create_post(request):
         'form' : PostForm()
     }
     return render(request, 'blog_app/create_post.html', context)
+
+
+def get_post(request, id):
+    post = Post.objects.get(id=id)
+    context = {
+        "post" : post
+    }
+    return render(request, 'blog_app/get_post.html', context)
+
+
+@login_required
+def edit_post(request, id):
+    pass
+
+
+@login_required
+def delete_post(request, id):
+    pass

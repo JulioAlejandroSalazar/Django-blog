@@ -24,7 +24,7 @@
 {% if last_post %}
     <div class="card mb-4">
         {% if not last_post.post_image %}
-            <img class="card-img-top" src="https://dummyimage.com/850x350/dee2e6/6c757d.jpg" alt="..." />
+            <img class="card-img-top" src="https://dummyimage.com/1250x500/dee2e6/6c757d.jpg" alt="..." />
         {% else %}
             <img class="card-img-top" src="{{ last_post.post_image.url }}" style="object-fit: cover; aspect-ratio: 2.42 / 1;" alt="...">
         {% endif %}
@@ -32,7 +32,7 @@
             <div class="small text-muted">Written by <a class="link" href="{% url 'unaffiliated_profile' last_post.author %}">{{ last_post.author }}</a> | {{ last_post.date|date:"N jS, G:i" }}</div>
             <h2 class="card-title">{{ last_post.title }}</h2>
             <p class="card-text">{{ last_post.body }}</p>
-            <a class="btn btn-primary" href="#!">Read more →</a>
+            <a class="btn btn-primary" href="{% url 'get_post' last_post.id %}">Read more →</a>
         </div>
     </div>
 {% endif %}
@@ -53,7 +53,7 @@
                         <div class="small text-muted">Written by <a class="link" href="{% url 'unaffiliated_profile' post.author %}">{{ post.author }}</a> | {{ post.date|date:"N jS, G:i" }}</div>
                         <h2 class="card-title h4">{{ post.title }}</h2>
                         <p class="card-text">{{ post.body }}</p>                       
-                        <a class="btn btn-primary" href="#!">Read more →</a>
+                        <a class="btn btn-primary" href="{% url 'get_post' post.id %}">Read more →</a>
                     </div>
                 </div>
             </div>
