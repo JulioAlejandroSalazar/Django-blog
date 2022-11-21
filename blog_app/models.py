@@ -11,6 +11,7 @@ class Post(models.Model):
     body = models.TextField()
     date = models.DateTimeField(default=timezone.now)
     post_image = models.ImageField(blank=True, null=True, upload_to="post_image")
+    is_edited = models.BooleanField(blank=True, default=False)
 
     def __str__(self):
         return self.title + ' | ' + str(self.author)
