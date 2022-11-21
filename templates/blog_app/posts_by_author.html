@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block header %}
+<header class="py-5 bg-light border-bottom mb-4">
+    <div class="container">
+        <div class="text-center my-5">
+            <h1 class="fw-bolder">Posts by {{ user.username }}</h1>
+            {% if messages %}
+                    {% for message in messages %}
+                       {{ message }}
+                    {% endfor %}
+            {% endif %}
+            {{ message }}
+            {{ error }}
+        </div>
+    </div>
+</header>
+{% endblock %}
+
+{% block posts %}
+<div class="row">
+    {% if posts %}
+        {% for post in posts %}
+        {{ post|dictsortreversed:0 }}
+            <div class="col-lg-6">        
+                <div class="card mb-4 ">
+                    {% if not post.post_image %}
+                        <img class="card-img-top" src="https://dummyimage.com/700x350/dee2e6/6c757d.jpg" alt="..." />
+                    {% else %}
+                            <img class="card-img-top" style="object-fit: cover; aspect-ratio: 2 / 1;" src="{{ post.post_image.url }}" alt="..." />
+                    {% endif %}
+                    <div class="card-body">
+                        {% if post.is_edited == True %}
+                            <div class="small text-muted">Written by <a class="link" href="{% url 'unaffiliated_profile' post.author %}">{{ post.author }}</a> | {{ post.date|date:"N jS, G:i" }} (edited)</div>
+                        {% else %}
+                            <div class="small text-muted">Written by <a class="link" href="{% url 'unaffiliated_profile' post.author %}">{{ post.author }}</a> | {{ post.date|date:"N jS, G:i" }}</div>
+                        {% endif %}
+                        <h2 class="card-title h4">{{ post.title }}</h2>
+                        <p class="card-text">{{ post.body }}</p>                       
+                        <a class="btn btn-primary" href="{% url 'get_post' post.id %}">Read more →</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    {% endif %}
+</div>
+
+<!-- Pagination-->
+<nav aria-label="Pagination">
+    <ul class="pagination justify-content-center my-4">
+        <li class="page-item disabled"><a class="page-link" href="#" tabindex="-1" aria-disabled="true">Newer</a></li>
+        <li class="page-item active" aria-current="page"><a class="page-link" href="#!">1</a></li>
+        <li class="page-item"><a class="page-link" href="#!">2</a></li>
+        <li class="page-item"><a class="page-link" href="#!">3</a></li>
+        <li class="page-item disabled"><a class="page-link" href="#!">...</a></li>
+        <li class="page-item"><a class="page-link" href="#!">15</a></li>
+        <li class="page-item"><a class="page-link" href="#!">Older</a></li>
+    </ul>
+</nav>
+{% endblock %}

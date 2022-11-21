@@ -97,3 +97,13 @@ def delete_post(request, id):
         'message' : 'Are your sure you want to delete this post?',
     }
     return render(request, 'blog_app/delete_post.html', context)
+
+
+def posts_by_author(request, id):
+    posts = Post.objects.filter(author=id).order_by('-date')
+    user = User.objects.get(id=id)
+    context = {
+        'posts' : posts,
+        'user' : user,
+    }
+    return render(request, 'blog_app/posts_by_author.html', context)

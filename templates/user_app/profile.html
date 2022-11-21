@@ -22,7 +22,11 @@
             <img class= "rounded-circle img-fluid" style="width: 125px; height: 125px; object-fit: cover;" src="{{ user.profile.profile_pic.url }}" alt="profile_pic">
             <h5 class="my-3">{{ user.username }}</h5>
             <p class="text-muted mb-1">{{ user.profile.short_description|default_if_none:"" }}</p>
-            <p class="text-muted mb-4">Posts: {{ user.profile.post_count }}</p>
+            {% if user.profile.post_count == 0 %}
+              <p class="text-muted mb-4">Posts: {{ user.profile.post_count }}</p>
+            {% else %}
+              <p class="text-muted mb-4">Posts: <a href="{% url 'posts_by_author' user.id %}">{{ user.profile.post_count }}</a></p>
+            {% endif %}
             <div class="d-flex justify-content-center mb-2">
               {% if user.is_authenticated %}
                 {% if not username %}
