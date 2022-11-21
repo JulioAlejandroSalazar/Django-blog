@@ -18,7 +18,11 @@
 					</div>
 				</div>
 				{% endif %}
-			<div class="text-muted fst-italic mb-4">Written by <a class="link" href="{% url 'unaffiliated_profile' post.author %}">{{ post.author }}</a> | {{ post.date|date:"N jS, G:i" }}</div>	
+			{% if post.is_edited == True %}
+				<div class="text-muted fst-italic mb-4">Written by <a class="link" href="{% url 'unaffiliated_profile' post.author %}">{{ post.author }}</a> | {{ post.date|date:"N jS, G:i" }} (edited)</div>
+			{% else %}
+			<div class="text-muted fst-italic mb-4">Written by <a class="link" href="{% url 'unaffiliated_profile' post.author %}">{{ post.author }}</a> | {{ post.date|date:"N jS, G:i" }}</div>
+			{% endif %}	
 			<article>
 				{% if not post.post_image %}
 					

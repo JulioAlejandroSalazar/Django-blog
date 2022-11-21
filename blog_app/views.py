@@ -4,6 +4,7 @@ from django.contrib import messages
 from .forms import *
 from .models import *
 from user_app.models import Profile
+from django.utils import timezone
 
 
 
@@ -61,6 +62,8 @@ def edit_post(request, id):
             if form.is_valid():
                 instance = form.save(commit=False)
                 instance.author = user
+                instance.is_edited = True
+                instance.date = str(timezone.now())
                 instance.save()
                 messages.success(request, 'Publication edited successfully!')
                 return redirect('home')
