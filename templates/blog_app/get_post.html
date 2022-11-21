@@ -7,7 +7,18 @@
 	<div class="row">
 		<div class="col-lg-11">
 			<h1 class="fw-bolder mb-1">{{ post.title }}</h1>
-				<div class="text-muted fst-italic mb-4">Written by <a class="link" href="{% url 'unaffiliated_profile' post.author %}">{{ post.author }}</a> | {{ post.date|date:"N jS, G:i" }}</div>
+				{% if request.user == post.author %}
+				<div class="dropdown show">
+					<a class="btn btn-secondary float-right" href="#" role="button" id="post-options" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						&vellip;
+					</a>				  
+					<div class="dropdown-menu" aria-labelledby="post-options">
+					  <a class="dropdown-item" href="{% url 'edit_post' post.id %}">Edit</a>
+					  <a class="dropdown-item" href="{% url 'delete_post' post.id %}">Delete</a>
+					</div>
+				</div>
+				{% endif %}
+			<div class="text-muted fst-italic mb-4">Written by <a class="link" href="{% url 'unaffiliated_profile' post.author %}">{{ post.author }}</a> | {{ post.date|date:"N jS, G:i" }}</div>	
 			<article>
 				{% if not post.post_image %}
 					
