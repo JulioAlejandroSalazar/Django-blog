@@ -5,6 +5,7 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import get_user_model
 from django.contrib.auth import update_session_auth_hash
 from blog_app.models import Post
 from .forms import *
@@ -13,20 +14,20 @@ from .models import *
 
 
 def login_view(request):
-    if request.method == "POST":
-        form = AuthenticationForm(request, data = request.POST)
+    if request.method == "POST":        
         username = request.POST['username']
-        password = request.POST['password']
-        user = authenticate(request, username = username, password = password)
-        if user is not None:
-            login(request, user)
+        password = request.POST['password']        
+        if User.objects.filter(username=username).exists() == False:
+            messages.error(request, 'User does not exist')
+            return redirect('login_view') 
+        elif authenticate(request, username = username, password = password) == None:
+            messages.error(request, 'Incorrect password')
+            return redirect('login_view')       
+        else:
+            user = authenticate(request, username = username, password = password)        
+            login(request, user)    
             messages.success(request, f'Good to see you again, {username}!')
             return redirect('home')
-        context = {
-            'error' : 'Username or password incorrect',
-            'form' : form,
-        }
-        return render(request, 'user_app/login.html', context)
 
     else:
         context = {
@@ -38,21 +39,24 @@ def login_view(request):
 def register(request):
     if request.method == "POST":
         form = UserRegisterForm(request.POST)
-        if form.is_valid():
-            username = form.cleaned_data["username"]
-            password = form.cleaned_data["password1"]
-            form.save()
-            user = authenticate(request, username = username, password = password)
-            login(request, user)
-            ruser = request.user
-            player, created = Profile.objects.get_or_create(user = ruser)
-            messages.success(request, f'Welcome for the first time {username}, make yourself at home')
-            return redirect('home')         
-        context = {
-            "error" : "Invalid data",
-            "form" : form,
-        }
-        return render(request, 'user_app/register.html', context)
+        username = request.POST["username"]
+        password = request.POST["password1"]
+        #checking if the user exists, case insensitive
+        if User.objects.filter(username__iexact=username).exists():
+            messages.error(request, 'That username already exists')
+            return redirect('register')
+        else:
+            if form.is_valid():         
+                form.save()
+                user = authenticate(request, username = username, password = password)
+                login(request, user)
+                ruser = request.user
+                Profile.objects.get_or_create(user = ruser)
+                messages.success(request, f'Welcome for the first time {username}, make yourself at home')
+                return redirect('home')
+            else:             
+                messages.error(request, 'Passwords did not match')
+                return redirect('register')
     
     else:
         context = {
