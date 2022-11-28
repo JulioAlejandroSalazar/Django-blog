@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from django.core.paginator import Paginator
 from .forms import *
 from .models import *
 from user_app.models import Profile
@@ -9,12 +10,15 @@ from django.utils import timezone
 
 
 def home(request):
-    posts = Post.objects.order_by('-date')
+    posts = Post.objects.all().order_by('-date')
+    paginator = Paginator(posts, 6)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
     last_post = Post.objects.latest('date')
     if not posts.exists():
         return render(request, 'blog_app/home.html')
     context = {
-        'posts' : posts,
+        'posts' : page_obj,
         'last_post' : last_post,
     }
     return render(request, 'blog_app/home.html', context)
@@ -102,8 +106,11 @@ def delete_post(request, id):
 def posts_by_author(request, id):
     posts = Post.objects.filter(author=id).order_by('-date')
     user = User.objects.get(id=id)
+    paginator = Paginator(posts, 6)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
     context = {
-        'posts' : posts,
+        'posts' : page_obj,
         'user' : user,
     }
     return render(request, 'blog_app/posts_by_author.html', context)
