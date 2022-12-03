@@ -86,7 +86,6 @@
         {% if posts.has_next %}
             <li class="page-item"><a class="page-link" href="?page={{ posts.next_page_number }}">Next</a></li>
         {% endif %}
-        {{ posts.number }} of {{ posts.paginator.num_pages }}
     </ul>
 </nav>
 {% endblock %}
