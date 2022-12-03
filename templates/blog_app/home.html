@@ -36,7 +36,7 @@
                     <div class="small text-muted">Written by <a class="link" href="{% url 'unaffiliated_profile' last_post.author %}">{{ last_post.author }}</a> | {{ last_post.date|date:"N jS, G:i" }}</div>
                 {% endif %}
                 <h2 class="card-title">{{ last_post.title }}</h2>
-                <p class="card-text">{{ last_post.body }}</p>
+                <p class="card-text text-truncate">{{ last_post.body }}</p>
                 <a class="btn btn-primary" href="{% url 'get_post' last_post.id %}">Read more →</a>
             </div>
         </div>
@@ -62,7 +62,7 @@
                             <div class="small text-muted">Written by <a class="link" href="{% url 'unaffiliated_profile' post.author %}">{{ post.author }}</a> | {{ post.date|date:"N jS, G:i" }}</div>
                         {% endif %}
                         <h2 class="card-title h4">{{ post.title }}</h2>
-                        <p class="card-text">{{ post.body }}</p>                       
+                        <p class="card-text text-truncate">{{ post.body }}</p>                       
                         <a class="btn btn-primary" href="{% url 'get_post' post.id %}">Read more →</a>
                     </div>
                 </div>
