@@ -40,9 +40,13 @@ def register(request):
         form = UserRegisterForm(request.POST)
         username = request.POST["username"]
         password = request.POST["password1"]
+        email = request.POST["email"]
         #checking if the user exists, case insensitive
         if User.objects.filter(username__iexact=username).exists():
             messages.error(request, 'That username already exists')
+            return redirect('register')
+        elif User.objects.filter(email__iexact=email).exists():
+            messages.error(request, 'That email is already in use')
             return redirect('register')
         else:
             if form.is_valid():         
@@ -145,7 +149,3 @@ def change_password(request):
             "form" : UserPasswordChangeForm(request.user)
         }
         return render(request, "user_app/change_password.html", context)
-
-
-def get_avatar(request):
-    pass
