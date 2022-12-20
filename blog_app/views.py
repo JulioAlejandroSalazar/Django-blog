@@ -114,3 +114,7 @@ def posts_by_author(request, id):
         'user' : user,
     }
     return render(request, 'blog_app/posts_by_author.html', context)
+
+
+def about(request):
+    return render(request, 'blog_app/about.html')
