@@ -23,8 +23,9 @@ Web app based on a blog using Python Django
 - ```pip install psycopg2```
 2. Make sure you´re on the location 'lemon_blog' in your terminal
 3. Execute the following command:
-```python manage.py runserver```
-4. Paste the following URL in your browser and you´re good to go 
+```python manage.py runserver```</br>
+(If there is an error in this step, install the apps the terminal needs)
+4. Paste the following URL in your browser and you´re good to go http://localhost:8000/
 
 ## Credits:
 Julio Salazar
