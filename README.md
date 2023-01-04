@@ -21,7 +21,7 @@ Web app based on a blog using Python Django
 - ```pip install django```
 - ```pip install django-crispy-forms```
 - ```pip install psycopg2```
-2. Make sure you´re on the location 'lemon_blog' in your terminal
+2. Make sure you´re on the main folder of the project in your terminal (the one that contains the README file)
 3. Execute the following command:
 ```python manage.py runserver```</br>
 (If there is an error in this step, install the apps the terminal needs)
