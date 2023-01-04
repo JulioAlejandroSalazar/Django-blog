@@ -1,4 +1,7 @@
 ![Screenshot](https://github.com/JulioAlejandroSalazar/Django-blog/blob/main/ImageLibrary/Captura%20de%20pantalla.png?raw=true)
+![Screenshot2](https://github.com/JulioAlejandroSalazar/Django-blog/blob/main/ImageLibrary/Captura%20de%20pantalla%20(2).png?raw=true)
+![Screenshot3](https://github.com/JulioAlejandroSalazar/Django-blog/blob/main/ImageLibrary/Captura%20de%20pantalla%20(3).png?raw=true)
+![Screenshot4](https://github.com/JulioAlejandroSalazar/Django-blog/blob/main/ImageLibrary/Captura%20de%20pantalla%20(4).png?raw=true)
 
 # Django blog
 Web app based on a blog using Python Django
