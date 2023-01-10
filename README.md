@@ -4,7 +4,7 @@
 ![Screenshot4](https://github.com/JulioAlejandroSalazar/Django-blog/blob/main/ImageLibrary/Captura%20de%20pantalla%20(4).png?raw=true)
 
 # Django blog
-Web app based on a blog using Python Django
+Web app using Django Python, this blog uses PostgreSQL as the database, for the frontend I used Bootstrap and the backend is for the most part written in function base views.
 
 ## Built with:
 ![ Python ](https://shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)</br>
